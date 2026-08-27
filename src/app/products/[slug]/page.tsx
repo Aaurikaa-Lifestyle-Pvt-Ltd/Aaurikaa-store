@@ -24,6 +24,8 @@ interface PageProps {
 
 type Crumb = { label: string; href?: string };
 
+export const dynamic = "force-dynamic";
+
 export async function generateStaticParams() {
   if (isApiCatalogue()) return [];
   const products = await getProducts();

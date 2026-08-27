@@ -20,6 +20,8 @@ interface PageProps {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }
 
+export const dynamic = "force-dynamic";
+
 export async function generateStaticParams() {
   if (isApiCatalogue()) return [];
   const categories = await getCategories();
