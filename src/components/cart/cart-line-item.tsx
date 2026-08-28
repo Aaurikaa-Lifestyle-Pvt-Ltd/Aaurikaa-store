@@ -9,6 +9,7 @@ import {
   lineTotal,
 } from "@/lib/cart";
 import { cn } from "@/lib/cn";
+import { isRemoteSrc } from "@/lib/mappers/media";
 import { useCart } from "./cart-provider";
 
 interface CartLineItemProps {
@@ -54,6 +55,7 @@ export function CartLineItem({
           alt={item.image.alt}
           fill
           sizes={compact ? "72px" : "(min-width: 640px) 104px, 88px"}
+          unoptimized={isRemoteSrc(item.image.src)}
           className="object-cover"
         />
       </Link>
