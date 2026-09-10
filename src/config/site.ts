@@ -71,7 +71,7 @@ export const siteConfig: SiteConfig = {
       links: [
         { label: "Contact", href: "/contact" },
         { label: "Shipping", href: "/shipping" },
-        { label: "Returns", href: "/returns" },
+        { label: "Feedback & Suggestions", href: "/feedback" },
         { label: "FAQs", href: "/faqs" },
         { label: "Help Center", href: "/help-center" },
       ],

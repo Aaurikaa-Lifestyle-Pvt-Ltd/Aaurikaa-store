@@ -110,7 +110,7 @@ test("siteConfig footer defaults avoid marketplace keys and resolve via aliases"
   assert.match(text, /href: "\/privacy"/);
   assert.match(text, /href: "\/terms"/);
   assert.match(text, /href: "\/shipping"/);
-  assert.match(text, /href: "\/returns"/);
+  assert.match(text, /href: "\/feedback"/);
   assert.match(text, /href: "\/faqs"/);
   assert.match(text, /href: "\/refund-policy"/);
   assert.match(text, /href: "\/about"/);
