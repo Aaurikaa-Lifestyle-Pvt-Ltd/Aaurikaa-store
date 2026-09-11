@@ -21,7 +21,7 @@ export function WearYourStory() {
             </h2>
             <div className="my-6 w-16 border-t-2 border-accent/50 sm:my-8" />
             <ButtonLink
-              href="/collections/the-pearl-edit"
+              href="/collections"
               variant="primary"
               size="lg"
             >
