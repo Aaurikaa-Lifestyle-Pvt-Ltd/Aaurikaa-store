@@ -70,7 +70,7 @@ async function HomepageSectionRenderer({
             collection={section.collection}
             cta={{
               label: "Shop All",
-              href: collection?.href ?? `/collections/${section.collection}`,
+              href: collection?.href ?? "/new-arrivals",
             }}
           />
         );
@@ -86,7 +86,7 @@ async function HomepageSectionRenderer({
             collection={section.collection}
             cta={{
               label: "Shop All",
-              href: collection?.href ?? `/collections/${section.collection}`,
+              href: collection?.href ?? "/best-sellers",
             }}
           />
         );

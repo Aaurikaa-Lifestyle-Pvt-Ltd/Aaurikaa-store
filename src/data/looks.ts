@@ -17,7 +17,7 @@ export const looks: Look[] = [
       alt: "Golden Hour layered pearl and crystal styling",
     },
     ctaLabel: "Shop the Look",
-    href: "/collections/new-arrivals",
+    href: "/new-arrivals",
     productIds: ["p-aurora-choker", "p-solene-studs"],
   },
   {
@@ -33,7 +33,7 @@ export const looks: Look[] = [
       alt: "Quiet Luxe modern pearl drop styling",
     },
     ctaLabel: "Shop the Look",
-    href: "/collections/best-sellers",
+    href: "/best-sellers",
     productIds: ["p-celeste-band", "p-lumen-drops"],
   },
   {

@@ -216,7 +216,7 @@ export default function SpinToWinPage() {
             <div className="mt-12 rounded-card border border-border bg-surface px-6 py-10 sm:px-10 sm:py-12 shadow-soft max-w-md mx-auto">
               <p className="text-sm text-muted-foreground tracking-wide leading-relaxed">{inactiveReason}</p>
               <div className="mt-8">
-                <ButtonLink href="/collections/new-arrivals" variant="primary">
+                <ButtonLink href="/new-arrivals" variant="primary">
                   Continue shopping
                 </ButtonLink>
               </div>

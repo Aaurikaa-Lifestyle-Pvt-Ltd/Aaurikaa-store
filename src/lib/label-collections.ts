@@ -21,7 +21,7 @@ export function virtualLabelCollection(
       slug: "new-arrivals",
       name: "New Arrivals",
       image: { src: PLACEHOLDER, alt: "New Arrivals" },
-      href: "/collections/new-arrivals",
+      href: "/new-arrivals",
     };
   }
   if (slug === "best-sellers") {
@@ -30,7 +30,7 @@ export function virtualLabelCollection(
       slug: "best-sellers",
       name: "Bestsellers",
       image: { src: PLACEHOLDER, alt: "Bestsellers" },
-      href: "/collections/best-sellers",
+      href: "/best-sellers",
     };
   }
   return undefined;

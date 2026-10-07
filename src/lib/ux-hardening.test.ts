@@ -47,12 +47,51 @@ test("mobile bottom nav mounts Home Shop Wishlist Cart", () => {
   const nav = read("components/layout/mobile-bottom-nav.tsx");
   assert.match(layout, /MobileBottomNav/);
   assert.match(nav, /href: "\/"/);
-  assert.match(nav, /href: "\/categories"/);
+  assert.match(nav, /href: "\/shop"/);
   assert.match(nav, /href: "\/wishlist"/);
   assert.match(nav, /href: "\/cart"/);
-  assert.doesNotMatch(nav, /\/shop"/);
+  assert.doesNotMatch(nav, /href: "\/categories"/);
   assert.doesNotMatch(nav, /\/account"/);
   assert.doesNotMatch(nav, /\/search"/);
+});
+
+test("default primaryNav includes Shop before Jewellery", () => {
+  const site = read("config/site.ts");
+  const navStart = site.indexOf("primaryNav:");
+  const navBlock = site.slice(navStart, site.indexOf("],", navStart) + 1);
+  assert.match(navBlock, /label: "Shop",\s*href: "\/shop"/);
+  assert.match(
+    navBlock,
+    /href: "\/shop"[\s\S]*href: "\/categories"/,
+  );
+});
+
+test("shop page wires search filterMode with megaMenu taxonomy", () => {
+  const shop = read("app/shop/page.tsx");
+  assert.match(shop, /filterMode="search"/);
+  assert.match(shop, /taxonomyOptions=\{megaMenu\}/);
+  assert.match(shop, /getMegaMenuTree/);
+});
+
+test("discovery taxonomy falls back when mega-menu is empty", () => {
+  const data = read("lib/data.ts");
+  assert.match(data, /fetchPublicTaxonomyTree/);
+  assert.match(data, /if \(mega\.length > 0\) return mega/);
+  const categoriesApi = read("lib/api/categories.ts");
+  assert.match(categoriesApi, /export async function fetchPublicTaxonomyTree/);
+  assert.match(categoriesApi, /\/subcategories/);
+  assert.match(categoriesApi, /child-categories/);
+});
+
+test("discovery filter drawer exposes Category and active count", () => {
+  const toolbar = read("components/discovery/discovery-toolbar.tsx");
+  assert.match(toolbar, /countActiveFilters/);
+  assert.match(toolbar, /Filter · \$\{activeFilterCount\}/);
+  assert.match(toolbar, />Category</);
+  assert.doesNotMatch(toolbar, /Category Hierarchy/);
+  assert.match(toolbar, /Price Range/);
+  assert.match(toolbar, /Availability & Offers/);
+  assert.match(toolbar, /showTaxonomyFacets/);
 });
 
 test("wishlist provider is auth-only and does not invent guest wishlist", () => {

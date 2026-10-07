@@ -35,6 +35,7 @@ import {
   fetchMegaMenuTree,
   fetchPublicCategories,
   fetchPublicCategoryBySlug,
+  fetchPublicTaxonomyTree,
   resolveTaxonomy,
   resolveTaxonomyCategory,
   type TaxonomyResolveResult,
@@ -62,7 +63,6 @@ import {
   fetchProductsForLabelSlug,
   isLabelCollectionSlug,
   labelSlugPriceBoundsQuery,
-  mergeLabelCollections,
   virtualLabelCollection,
 } from "@/lib/label-collections";
 import {
@@ -271,11 +271,28 @@ export async function getTaxonomyPriceBounds(
   };
 }
 
-/** Mega-menu tree for search facets (empty in mock / on failure). */
+/**
+ * Taxonomy tree for shop/search Category facets.
+ * Prefers Admin mega-menu when configured; otherwise falls back to the full
+ * public category hierarchy so facets still appear when `showInMegaMenu` is off.
+ */
 export async function getMegaMenuTree(): Promise<MegaMenuTree> {
-  if (!isApiCatalogue()) return [];
+  if (!isApiCatalogue()) {
+    return mockCategories.map((c) => ({
+      id: c.id,
+      slug: c.slug,
+      name: c.name,
+      subcategories: [],
+    }));
+  }
   try {
-    return await fetchMegaMenuTree();
+    const mega = await fetchMegaMenuTree();
+    if (mega.length > 0) return mega;
+  } catch {
+    // Fall through to full public taxonomy.
+  }
+  try {
+    return await fetchPublicTaxonomyTree();
   } catch {
     return [];
   }
@@ -308,12 +325,17 @@ export async function getSearchPriceBounds(
   };
 }
 
+/**
+ * Curated/editorial MerchCollections for the collections index and related UI.
+ * Does not inject operational label destinations (New Arrivals / Best Sellers) —
+ * those live at `/new-arrivals` and `/best-sellers`. Label helpers remain for
+ * ProductShowcase and the dedicated label routes.
+ */
 export async function getCollections(): Promise<Collection[]> {
   if (isApiCatalogue()) {
-    const apiCollections = await fetchPublicCollections();
-    return mergeLabelCollections(apiCollections);
+    return fetchPublicCollections();
   }
-  return collections;
+  return collections.filter((c) => !isLabelCollectionSlug(c.slug));
 }
 
 /**

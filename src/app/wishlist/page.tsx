@@ -69,7 +69,7 @@ export default function WishlistPage() {
           <div className="mt-8 max-w-lg">
             <p className="text-sm text-muted-foreground">Your wishlist is empty.</p>
             <div className="mt-6">
-              <ButtonLink href="/collections/new-arrivals" variant="primary">
+              <ButtonLink href="/new-arrivals" variant="primary">
                 Continue Shopping
               </ButtonLink>
             </div>

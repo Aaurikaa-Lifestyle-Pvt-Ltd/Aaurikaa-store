@@ -253,7 +253,7 @@ export default function OrdersPage() {
           You have not placed an order with Aaurikaa yet.
         </p>
         <div className="mt-6">
-          <ButtonLink href="/collections/new-arrivals" variant="primary">
+          <ButtonLink href="/new-arrivals" variant="primary">
             Explore Jewellery Collections
           </ButtonLink>
         </div>

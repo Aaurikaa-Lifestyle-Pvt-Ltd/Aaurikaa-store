@@ -279,15 +279,22 @@ export function applyDiscoveryPage(
 }
 
 export function hasActiveFilters(query: DiscoveryQuery): boolean {
-  return Boolean(
-    query.inStockOnly ||
-      query.onSaleOnly ||
-      query.minPrice != null ||
-      query.maxPrice != null ||
-      query.category ||
-      query.subcategory ||
-      query.child,
-  );
+  return countActiveFilters(query) > 0;
+}
+
+/**
+ * Count discrete active facets (matches chip/RESET semantics):
+ * category, subcategory, child, price bounds (as one), in-stock, on-sale.
+ */
+export function countActiveFilters(query: DiscoveryQuery): number {
+  let count = 0;
+  if (query.category) count += 1;
+  if (query.subcategory) count += 1;
+  if (query.child) count += 1;
+  if (query.minPrice != null || query.maxPrice != null) count += 1;
+  if (query.inStockOnly) count += 1;
+  if (query.onSaleOnly) count += 1;
+  return count;
 }
 
 /** Clear facet filters while preserving search text (and default sort/page). */

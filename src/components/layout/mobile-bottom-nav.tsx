@@ -8,12 +8,12 @@ import { IconBag, IconHeart, IconHome, IconShop } from "@/components/ui/icons";
 
 /**
  * Fixed mobile bottom nav — Home | Shop | Wishlist | Cart (lg:hidden).
- * Shop → existing `/categories` jewellery discovery (no new /shop route).
+ * Shop → full catalogue at `/shop`.
  */
 const items = [
   { href: "/", label: "Home", Icon: IconHome, match: "exact" as const },
   {
-    href: "/categories",
+    href: "/shop",
     label: "Shop",
     Icon: IconShop,
     match: "prefix" as const,

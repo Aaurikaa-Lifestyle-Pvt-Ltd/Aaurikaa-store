@@ -21,7 +21,7 @@ export const hero: HeroContent = {
     src: "/images/hero-tablet.png",
     alt: "South Asian model wearing emerald and pearl statement choker jewellery in an ivory silk ensemble",
   },
-  primaryCta: { label: "Shop New Arrivals", href: "/collections/new-arrivals" },
+  primaryCta: { label: "Shop New Arrivals", href: "/new-arrivals" },
   secondaryCta: { label: "Explore Collections", href: "/collections" },
   align: "left",
   overlay: "dark",

@@ -108,7 +108,7 @@ export function OrderConfirmationView() {
               Place an order from checkout to see a confirmation here.
             </p>
             <div className="mt-8">
-              <ButtonLink href="/collections/new-arrivals" variant="primary">
+              <ButtonLink href="/new-arrivals" variant="primary">
                 Continue Shopping
               </ButtonLink>
             </div>

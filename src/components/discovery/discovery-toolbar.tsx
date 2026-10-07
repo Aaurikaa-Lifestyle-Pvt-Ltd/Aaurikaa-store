@@ -8,6 +8,7 @@ import {
   SORT_OPTIONS,
   buildDiscoverySearchParams,
   clearDiscoveryFilters,
+  countActiveFilters,
   hasActiveFilters,
 } from "@/lib/discovery";
 import { cn } from "@/lib/cn";
@@ -114,6 +115,9 @@ export function DiscoveryToolbar({
   }
 
   const filtersActive = hasActiveFilters(query);
+  const activeFilterCount = countActiveFilters(query);
+  const filterTriggerLabel =
+    activeFilterCount > 0 ? `Filter · ${activeFilterCount}` : "Filter";
   const showTaxonomyFacets = filterMode === "search";
   const showPrice =
     filterMode !== "simple" &&
@@ -215,7 +219,7 @@ export function DiscoveryToolbar({
             className="inline-flex h-9 items-center gap-2 rounded-control border border-border bg-surface px-4 text-xs font-semibold uppercase tracking-wider text-foreground transition-colors hover:border-foreground/30 hover:bg-muted"
           >
             <IconFilter className="h-3.5 w-3.5" />
-            Filters
+            {filterTriggerLabel}
           </button>
 
           {/* Quick Category Filter (Only in Global Search mode) */}
@@ -442,7 +446,7 @@ export function DiscoveryToolbar({
             className="flex-1 inline-flex h-9 items-center justify-center gap-2 rounded-control border border-border bg-surface text-xs font-semibold uppercase tracking-wider text-foreground hover:bg-muted"
           >
             <IconFilter className="h-3 w-3" />
-            Filter{filtersActive ? " •" : ""}
+            {filterTriggerLabel}
           </button>
           <button
             type="button"
@@ -570,7 +574,7 @@ export function DiscoveryToolbar({
                       onClick={() => setCategoryExpanded(!categoryExpanded)}
                       className="flex w-full items-center justify-between text-xs font-semibold uppercase tracking-wider text-foreground mb-3"
                     >
-                      <span>Category Hierarchy</span>
+                      <span>Category</span>
                       {categoryExpanded ? <IconMinus className="h-3.5 w-3.5" /> : <IconPlus className="h-3.5 w-3.5" />}
                     </button>
                     

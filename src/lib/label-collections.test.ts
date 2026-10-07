@@ -33,12 +33,13 @@ test("virtualLabelCollection returns neutral names only for known slugs", () => 
   assert.equal(arrivals!.description, undefined);
   assert.equal(arrivals!.seoTitle, undefined);
   assert.equal(arrivals!.seoDescription, undefined);
-  assert.match(arrivals!.href, /\/collections\/new-arrivals/);
+  assert.match(arrivals!.href, /^\/new-arrivals$/);
 
   const bestsellers = virtualLabelCollection("best-sellers");
   assert.ok(bestsellers);
   assert.equal(bestsellers!.name, "Bestsellers");
   assert.equal(bestsellers!.description, undefined);
+  assert.match(bestsellers!.href, /^\/best-sellers$/);
 
   assert.equal(virtualLabelCollection("the-pearl-edit"), undefined);
   assert.equal(virtualLabelCollection("the-festive-edit"), undefined);
@@ -57,7 +58,7 @@ test("mergeLabelCollections appends missing virtual destinations", () => {
       slug: "new-arrivals",
       name: "From API",
       image: { src: "/x.jpg", alt: "x" },
-      href: "/collections/new-arrivals",
+      href: "/new-arrivals",
     },
   ];
   const merged = mergeLabelCollections(existing);

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getCollections } from "@/lib/data";
+import { isLabelCollectionSlug } from "@/lib/label-collections";
 import { CatalogueIndex } from "@/components/discovery";
 import { siteConfig } from "@/config/site";
 
@@ -12,6 +13,8 @@ export const metadata: Metadata = {
 
 export default async function CollectionsIndexPage() {
   const collections = await getCollections();
+  // Index is editorial MerchCollections only — never New Arrivals / Best Sellers.
+  const editorial = collections.filter((c) => !isLabelCollectionSlug(c.slug));
 
   return (
     <CatalogueIndex
@@ -22,7 +25,7 @@ export default async function CollectionsIndexPage() {
         { label: "Home", href: "/" },
         { label: "Collections" },
       ]}
-      items={collections.map((c) => ({
+      items={editorial.map((c) => ({
         id: c.id,
         name: c.name,
         href: c.href,

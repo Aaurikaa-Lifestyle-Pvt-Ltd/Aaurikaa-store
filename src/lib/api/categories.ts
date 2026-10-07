@@ -247,3 +247,94 @@ export async function fetchMegaMenuTree(): Promise<MegaMenuTree> {
   const data = unwrapData(response);
   return mapMegaMenuTree(data);
 }
+
+type TaxonomyNodeRaw = {
+  _id?: unknown;
+  id?: unknown;
+  name?: string;
+  slug?: string;
+};
+
+/**
+ * Full active category → subcategory → child tree for shop/search facets.
+ * Uses public list endpoints (not mega-menu `showInMegaMenu` gate).
+ */
+export async function fetchPublicTaxonomyTree(): Promise<MegaMenuTree> {
+  const response = await apiRequest<Envelope<unknown> | unknown[]>("/api/categories", {
+    auth: false,
+  });
+  const rawRoots = Array.isArray(response)
+    ? response
+    : unwrapData(response as Envelope<unknown>);
+  if (!Array.isArray(rawRoots)) return [];
+
+  const roots = rawRoots.filter((item) => {
+    const cat = item as BackendCategory;
+    return cat?.isActive !== false;
+  }) as BackendCategory[];
+
+  return Promise.all(
+    roots.map(async (cat) => {
+      const id = idString(cat._id ?? cat.id);
+      const slug = String(cat.slug ?? "").trim();
+      const name = String(cat.name ?? "").trim();
+      if (!id || !slug || !name) return null;
+
+      let subsRaw: TaxonomyNodeRaw[] = [];
+      try {
+        const subs = await apiRequest<TaxonomyNodeRaw[] | Envelope<TaxonomyNodeRaw[]>>(
+          `/api/categories/${encodeURIComponent(id)}/subcategories`,
+          { auth: false },
+        );
+        subsRaw = Array.isArray(subs) ? subs : unwrapData(subs) ?? [];
+        if (!Array.isArray(subsRaw)) subsRaw = [];
+      } catch {
+        subsRaw = [];
+      }
+
+      const subcategories = (
+        await Promise.all(
+          subsRaw.map(async (sub) => {
+            const subId = idString(sub._id ?? sub.id);
+            const subSlug = String(sub.slug ?? "").trim();
+            const subName = String(sub.name ?? "").trim();
+            if (!subId || !subSlug || !subName) return null;
+
+            let childrenRaw: TaxonomyNodeRaw[] = [];
+            try {
+              const children = await apiRequest<
+                TaxonomyNodeRaw[] | Envelope<TaxonomyNodeRaw[]>
+              >(
+                `/api/categories/subcategories/${encodeURIComponent(subId)}/child-categories`,
+                { auth: false },
+              );
+              childrenRaw = Array.isArray(children)
+                ? children
+                : unwrapData(children) ?? [];
+              if (!Array.isArray(childrenRaw)) childrenRaw = [];
+            } catch {
+              childrenRaw = [];
+            }
+
+            return {
+              id: subId,
+              slug: subSlug,
+              name: subName,
+              children: childrenRaw
+                .map((child) => {
+                  const childId = idString(child._id ?? child.id);
+                  const childSlug = String(child.slug ?? "").trim();
+                  const childName = String(child.name ?? "").trim();
+                  if (!childId || !childSlug || !childName) return null;
+                  return { id: childId, slug: childSlug, name: childName };
+                })
+                .filter((c): c is NonNullable<typeof c> => Boolean(c)),
+            };
+          }),
+        )
+      ).filter((s): s is NonNullable<typeof s> => Boolean(s));
+
+      return { id, slug, name, subcategories };
+    }),
+  ).then((rows) => rows.filter((r): r is NonNullable<typeof r> => Boolean(r)));
+}

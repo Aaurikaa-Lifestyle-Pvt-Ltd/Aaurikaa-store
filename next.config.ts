@@ -1,6 +1,22 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Permanent IA redirects — query strings are preserved by Next.js defaults.
+  // Evaluated before `/collections/[slug]`, so label slugs never render there.
+  async redirects() {
+    return [
+      {
+        source: "/collections/new-arrivals",
+        destination: "/new-arrivals",
+        permanent: true,
+      },
+      {
+        source: "/collections/best-sellers",
+        destination: "/best-sellers",
+        permanent: true,
+      },
+    ];
+  },
   images: {
     // Mostly-static ecommerce imagery — cache optimized variants for 30 days.
     minimumCacheTTL: 2592000,

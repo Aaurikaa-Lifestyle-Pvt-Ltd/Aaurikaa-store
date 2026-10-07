@@ -17,7 +17,7 @@ export const collections: Collection[] = [
       src: "/images/collections/pearl-edit.png",
       alt: "New arrivals collection",
     },
-    href: "/collections/new-arrivals",
+    href: "/new-arrivals",
   },
   {
     id: "best-sellers",
@@ -28,7 +28,7 @@ export const collections: Collection[] = [
       src: "/images/collections/statement-jewellery.png",
       alt: "Bestsellers collection",
     },
-    href: "/collections/best-sellers",
+    href: "/best-sellers",
   },
   {
     id: "the-pearl-edit",

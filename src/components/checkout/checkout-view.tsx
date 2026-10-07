@@ -706,7 +706,7 @@ export function CheckoutView() {
                 : "Add pieces to your bag before continuing to checkout."}
             </p>
             <div className="mt-8">
-              <ButtonLink href="/collections/new-arrivals" variant="primary" size="md">
+              <ButtonLink href="/new-arrivals" variant="primary" size="md">
                 Continue Shopping
               </ButtonLink>
             </div>

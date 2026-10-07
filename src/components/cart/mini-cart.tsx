@@ -82,7 +82,7 @@ export function MiniCart() {
               Discover pieces made to complete your look.
             </p>
             <ButtonLink
-              href="/collections/new-arrivals"
+              href="/new-arrivals"
               variant="primary"
               size="md"
               className="mt-8"
@@ -126,7 +126,7 @@ export function MiniCart() {
               <p className="mt-3 text-center text-xs text-muted-foreground">
                 or{" "}
                 <Link
-                  href="/collections/new-arrivals"
+                  href="/new-arrivals"
                   onClick={closeCart}
                   className="underline-offset-4 hover:underline"
                 >

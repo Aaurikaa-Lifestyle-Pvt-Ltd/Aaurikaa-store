@@ -39,7 +39,7 @@ export function CartView() {
             </p>
             <div className="mt-8">
               <ButtonLink
-                href="/collections/new-arrivals"
+                href="/new-arrivals"
                 variant="primary"
                 size="md"
               >
@@ -90,7 +90,7 @@ export function CartView() {
 
             <p className="mt-8">
               <Link
-                href="/collections/new-arrivals"
+                href="/new-arrivals"
                 className="text-sm underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 Continue Shopping

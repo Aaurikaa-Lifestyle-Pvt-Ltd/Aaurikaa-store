@@ -49,21 +49,21 @@ export const siteConfig: SiteConfig = {
   logo: "/images/logo/Aaurikaa logo .png",
   announcement: "Complimentary shipping on all orders over ₹1,499",
   primaryNav: [
-    { label: "New Arrivals", href: "/collections/new-arrivals" },
+    { label: "New Arrivals", href: "/new-arrivals" },
+    { label: "Shop", href: "/shop" },
     { label: "Jewellery", href: "/categories" },
     { label: "Collections", href: "/collections" },
     { label: "Occasions", href: "/occasions" },
-    { label: "Best Sellers", href: "/collections/best-sellers" },
+    { label: "Best Sellers", href: "/best-sellers" },
   ],
   footerGroups: [
     {
       title: "Shop",
       links: [
-        { label: "New Arrivals", href: "/collections/new-arrivals" },
+        { label: "New Arrivals", href: "/new-arrivals" },
         { label: "Jewellery", href: "/categories" },
         { label: "Collections", href: "/collections" },
-        { label: "Best Sellers", href: "/collections/best-sellers" },
-        { label: "Gifts", href: "/collections/gifts" },
+        { label: "Best Sellers", href: "/best-sellers" },
       ],
     },
     {

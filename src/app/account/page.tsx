@@ -255,7 +255,7 @@ export default function AccountPage() {
           <div className="mt-4 py-4 text-center">
             <p className="text-sm text-muted-foreground">You have not placed an order yet.</p>
             <Link
-              href="/collections/new-arrivals"
+              href="/new-arrivals"
               className="mt-3 inline-flex items-center gap-1.5 text-xs font-medium text-accent transition-colors hover:text-foreground"
             >
               <span>Explore New Arrivals</span>

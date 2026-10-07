@@ -191,7 +191,7 @@ export default function StyleGuidePage() {
         <SectionHeading
           eyebrow="New In"
           title="New Arrivals"
-          cta={{ label: "Shop All", href: "/collections/new-arrivals" }}
+          cta={{ label: "Shop All", href: "/new-arrivals" }}
         />
       </Block>
 
@@ -205,7 +205,7 @@ export default function StyleGuidePage() {
         title="New Arrivals"
         variant="grid"
         collection="new-arrivals"
-        cta={{ label: "Shop All", href: "/collections/new-arrivals" }}
+        cta={{ label: "Shop All", href: "/new-arrivals" }}
       />
 
       <Container>
@@ -219,7 +219,7 @@ export default function StyleGuidePage() {
         title="Bestsellers"
         variant="carousel"
         collection="best-sellers"
-        cta={{ label: "Shop All", href: "/collections/best-sellers" }}
+        cta={{ label: "Shop All", href: "/best-sellers" }}
       />
     </>
   );

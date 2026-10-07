@@ -1,4 +1,5 @@
 import type { Collection, Look, Occasion, Product, UGCContent } from "@/types/commerce";
+import { isLabelCollectionSlug } from "@/lib/label-collections";
 import { mapBackendProduct } from "./product";
 import { idString, resolveMediaUrl } from "./media";
 
@@ -13,6 +14,11 @@ function imageFrom(url: unknown, alt: unknown, fallbackAlt: string) {
   };
 }
 
+function collectionHref(slug: string): string {
+  if (isLabelCollectionSlug(slug)) return `/${slug}`;
+  return `/collections/${slug}`;
+}
+
 export function mapMerchCollection(raw: RawMerch | null | undefined): Collection | null {
   if (!raw) return null;
   const id = idString(raw._id ?? raw.id);
@@ -25,7 +31,7 @@ export function mapMerchCollection(raw: RawMerch | null | undefined): Collection
     name,
     description: String(raw.description ?? "").trim() || undefined,
     image: imageFrom(raw.imageUrl, raw.imageAlt, name),
-    href: `/collections/${slug}`,
+    href: collectionHref(slug),
     editorial: Boolean(raw.showOnHome),
     seoTitle: String(raw.seoTitle ?? "").trim() || undefined,
     seoDescription: String(raw.seoDescription ?? "").trim() || undefined,

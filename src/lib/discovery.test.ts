@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import {
   buildDiscoverySearchParams,
+  countActiveFilters,
   defaultDiscoveryQuery,
   hasActiveFilters,
   paginateProducts,
@@ -112,6 +113,28 @@ test("hasActiveFilters includes price and taxonomy facets", () => {
   assert.equal(
     hasActiveFilters(defaultDiscoveryQuery({ category: "rings" })),
     true,
+  );
+});
+
+test("countActiveFilters counts discrete facets like RESET chips", () => {
+  assert.equal(countActiveFilters(defaultDiscoveryQuery()), 0);
+  assert.equal(
+    countActiveFilters(
+      defaultDiscoveryQuery({
+        category: "earrings",
+        subcategory: "studs",
+        child: "gold-studs",
+        minPrice: 100,
+        maxPrice: 500,
+        inStockOnly: true,
+        onSaleOnly: true,
+      }),
+    ),
+    6,
+  );
+  assert.equal(
+    countActiveFilters(defaultDiscoveryQuery({ minPrice: 50, maxPrice: 200 })),
+    1,
   );
 });
 
