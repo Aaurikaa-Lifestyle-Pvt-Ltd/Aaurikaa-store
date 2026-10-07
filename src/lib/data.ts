@@ -35,6 +35,7 @@ import {
   fetchMegaMenuTree,
   fetchPublicCategories,
   fetchPublicCategoryBySlug,
+  fetchPublicHomepageCategories,
   fetchPublicTaxonomyTree,
   resolveTaxonomy,
   resolveTaxonomyCategory,
@@ -141,6 +142,17 @@ export async function getCampaignBanners(): Promise<CampaignBannerContent[]> {
 export async function getCategories(): Promise<Category[]> {
   if (isApiCatalogue()) {
     return fetchPublicCategories();
+  }
+  return mockCategories;
+}
+
+/**
+ * Homepage Category Showcase only — curated `showOnHome` subset (max 8).
+ * `/categories` must keep using getCategories() for the full active catalogue.
+ */
+export async function getHomepageCategories(): Promise<Category[]> {
+  if (isApiCatalogue()) {
+    return fetchPublicHomepageCategories();
   }
   return mockCategories;
 }

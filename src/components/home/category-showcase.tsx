@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Category, Cta } from "@/types/commerce";
-import { getCategories } from "@/lib/data";
+import { getHomepageCategories } from "@/lib/data";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
 
@@ -9,7 +9,7 @@ interface CategoryShowcaseProps {
   title?: string;
   eyebrow?: string;
   cta?: Cta;
-  /** Pass categories directly, or omit to load the configured set. */
+  /** Pass categories directly, or omit to load the homepage-curated set. */
   categories?: Category[];
   /** Cap how many categories are shown. */
   visibleCount?: number;
@@ -25,6 +25,9 @@ const IMAGE_SIZES =
  * Desktop: a 4-up row of large, rounded lifestyle cards.
  * Mobile: a horizontal, snap-scrolling rail (no layout overflow).
  *
+ * Loads curated homepage categories (Admin showOnHome / homepageOrder), not the
+ * full catalogue — `/categories` continues to use getCategories().
+ *
  * Industry-neutral: it only understands the generic `Category` shape, so the
  * same component works for jewellery, fashion, furniture or general retail.
  */
@@ -36,7 +39,7 @@ export async function CategoryShowcase({
   visibleCount,
   emptyMessage = "Categories are on their way.",
 }: CategoryShowcaseProps) {
-  const all = categories ?? (await getCategories());
+  const all = categories ?? (await getHomepageCategories());
   const items =
     typeof visibleCount === "number" ? all.slice(0, visibleCount) : all;
 

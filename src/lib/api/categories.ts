@@ -121,6 +121,19 @@ export async function fetchPublicCategories(): Promise<Category[]> {
   return mapBackendCategories(data);
 }
 
+/**
+ * Curated homepage Category Showcase subset (`showOnHome`, ordered, max 8).
+ * Does not replace fetchPublicCategories — `/categories` still uses the full list.
+ */
+export async function fetchPublicHomepageCategories(): Promise<Category[]> {
+  const response = await apiRequest<Envelope<unknown> | unknown[]>(
+    "/api/categories?home=true",
+    { auth: false },
+  );
+  const data = Array.isArray(response) ? response : unwrapData(response as Envelope<unknown>);
+  return mapBackendCategories(data);
+}
+
 export async function fetchPublicCategoryBySlug(slug: string): Promise<Category | null> {
   const categories = await fetchPublicCategories();
   return categories.find((c) => c.slug === slug) ?? null;
